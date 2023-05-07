@@ -19,7 +19,7 @@ jobs:
       - name: Build & Deploy
         run: |
           npm install
-          npm build
+          npm run build
 
       - name: Save Artifact
         uses: actions/upload-artifact@v3
