@@ -1,0 +1,29 @@
+name: Lighthouse Report
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    container: tjharrison/gha-lighthouse-reports
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Run Report
+        run: |
+          lighthouse --chrome-flags="--headless --disable-gpu --no-sandbox" https://enkainos.com --output html --output json --output-path ./platform-web
+
+      - name: Save HTML Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: lighthouse-report-html
+          path: ./platform-web.report.html
+
+      - name: Save JSON Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: lighthouse-report-json
+          path: ./platform-web.report.json
