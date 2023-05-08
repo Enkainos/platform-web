@@ -33,6 +33,6 @@ jobs:
           name: webapp
           path: build/
 
-  lighthouse-report:
-    needs: build-and-deploy
-    uses: ./.github/workflows/lighthouse.yml
+#  lighthouse-report:
+#    needs: build-and-deploy
+#    uses: ./.github/workflows/lighthouse.yml
