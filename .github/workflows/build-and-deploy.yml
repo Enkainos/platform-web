@@ -1,13 +1,15 @@
+name: Deploy
+
+permissions:
+  id-token: write
+
 on:
   push:
     paths-ignore:
       - ".github/workflows/lighthouse.yml"
       - "lighthouse.js"
     branches:
-      - 'main'
-
-permissions:
-  id-token: write
+      - main
 
 jobs:
   build-and-deploy:
@@ -19,12 +21,12 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
-          role-to-assume: arn:aws:iam::791635357835:role/github-actions-oidc
+          role-to-assume: arn:aws:iam::388474961170:role/github-actions-oidc
           aws-region: us-east-1
 
       - name: Build & Deploy
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run deploy
 
       - name: Save Artifact
@@ -32,7 +34,3 @@ jobs:
         with:
           name: webapp
           path: build/
-
-#  lighthouse-report:
-#    needs: build-and-deploy
-#    uses: ./.github/workflows/lighthouse.yml
